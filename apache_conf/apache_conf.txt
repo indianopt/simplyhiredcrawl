@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+    ServerAdmin giaodn@gmail.com
+    DocumentRoot "E:/projects/cafe.com"
+    ServerName localhost
+    <Directory "E:/projects/cafe.com">
+        Options Indexes FollowSymLinks Includes ExecCGI
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost> 

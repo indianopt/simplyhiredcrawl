@@ -1,0 +1,1 @@
+Xin cám ơn câu hỏi của bạn. Chúng tôi sẽ trả lời sớm nhất có thể.
