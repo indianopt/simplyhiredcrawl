@@ -61,7 +61,7 @@ class Job extends Authentication {
 
 	function edit(){
 		if($_SERVER['REQUEST_METHOD'] == 'GET') {
-			$id = $this->uri->segment(4);
+			$id = $this->uri->segment(4, 0);
     		$job = $this->jobs_model->get_by_id($id);
             
     		$this->_render_edit($job);

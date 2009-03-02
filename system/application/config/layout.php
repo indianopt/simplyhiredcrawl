@@ -15,12 +15,10 @@
 |  assets_script = path to javascript folder inside assets
 | -------------------------------------------------------------------
 */
-//$config['views_folder']  = "vplshovu";
 $config['views_folder']  = "simple";
 $config['views_commons'] = "common";
 $config['views_content'] = "content";
 $config['assets_folder'] = "assets";
-//$config['assets_design'] = "vplshovu";
 $config['assets_design'] = "simple";
 $config['assets_shared'] = "shared";
 $config['assets_styles'] = "css";
@@ -43,12 +41,6 @@ $config['assets_script'] = "script";
 */
 $config['layout_model']    = "layout_model";
 $config['layout_elements'] = array(
-								"menu"	 		=> "",
-								"copyright" 	=> "",
-                                "banner"    	=> "",
-                                "navigation"    => "",
-								//"footer_links"  => "",
-								//"contactus"    	=> ""
 								);
 
 /*
@@ -61,15 +53,8 @@ $config['layout_elements'] = array(
 |  Note: in order to work all properties must have the 'app_' prefix.
 | -------------------------------------------------------------------
 */
-/*
-$config['app_title']	   = "Van Phong Luat Su Ho Vu";
-$config['app_keywords']    = "";
-$config['app_description'] = "";
-$config['app_copyright']   = "(c) 2008 Dang Ngoc Giao All Rights Reserved.";
-$config['app_author']   = "Dang Ngoc Giao at giaodn@gmail.com.";
-*/
 
-$config['app_title']	   = "Sanh Dieu 24h";
+$config['app_title']	   = "Title here";
 $config['app_keywords']    = "";
 $config['app_description'] = "";
 $config['app_copyright']   = "(c) 2008 Dang Ngoc Giao All Rights Reserved.";

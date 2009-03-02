@@ -648,6 +648,7 @@
         preg_match_all($pattern, str_replace("'s", '', trim(strtolower($str))), $matches);
         
         $str = str_replace(' ', '-', implode('', $matches[0]));
+        $str = str_replace('--', '-', $str);
         return $str;
     }
     
