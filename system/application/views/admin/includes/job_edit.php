@@ -53,6 +53,14 @@
 								</td>
 							</tr>
                             <tr>
+								<td class="dataLabel" width="100%">Url<span class="required">*</span></td>
+                            </tr>
+                            <tr>
+								<td class="dataField" width="100%">
+									<input type="text" id="url" name="url" realname="Url" regexp="" required="true" maxlenght="128" value="<?=isset($job['url']) ? $job['url'] : ''?>" size="60" />
+								</td>
+							</tr>
+                            <tr>
 								<td class="dataLabel" width="100%">Time latest<span class="required">*</span></td>
                             </tr>
                             <tr>

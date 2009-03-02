@@ -83,8 +83,9 @@ class Job extends Authentication {
                 $data['description'] = addslashes($this->input->post('description'));
                 $data['time_latest'] = addslashes($this->input->post('time_latest'));
                 $data['crawl_from'] = addslashes($this->input->post('crawl_from'));
+                $data['url'] = addslashes($this->input->post('url'));
                 
-                $data['category_i'] = $this->input->post('category_i');
+                $data['category_id'] = $this->input->post('category_id');
                 
                 $data['last_updated'] = date('Y-m-d h:i:s');
                 
