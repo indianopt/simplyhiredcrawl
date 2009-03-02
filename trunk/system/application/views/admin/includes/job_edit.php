@@ -37,6 +37,14 @@
 								</td>
 							</tr>
                             <tr>
+								<td class="dataLabel" width="100%">Alias<span class="required">*</span></td>
+                            </tr>
+                            <tr>
+								<td class="dataField" width="100%">
+									<input type="text" id="alias" name="alias" realname="Alias" regexp="" required="true" maxlenght="128" value="<?=isset($job['alias']) ? $job['alias'] : ''?>" size="60" />
+								</td>
+							</tr>
+                            <tr>
 								<td class="dataLabel" width="100%">Company<span class="required">*</span></td>
                             </tr>
                             <tr>
