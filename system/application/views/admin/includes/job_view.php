@@ -16,7 +16,11 @@
 		<td width="85%" class="tabDetailViewDF"><?=$job['name']?>&nbsp;</td>
 	</tr>
     <tr>
-		<td width="15%" class="tabDetailViewDL">Name:</td>
+		<td width="15%" class="tabDetailViewDL">Alias:</td>
+		<td width="85%" class="tabDetailViewDF"><?=$job['alias']?>&nbsp;</td>
+	</tr>
+    <tr>
+		<td width="15%" class="tabDetailViewDL">Company:</td>
 		<td width="85%" class="tabDetailViewDF"><?=$job['company']?>&nbsp;</td>
 	</tr>
     <tr>
