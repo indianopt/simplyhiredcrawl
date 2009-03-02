@@ -121,6 +121,7 @@ class Crawl extends Controller {
             // End parse $c
             
             $data['name'] = addslashes($name);
+            $data['alias'] = trim(strip_disallowed_characters($name));
             $data['company'] = addslashes($company);
             $data['location'] = addslashes($location);
             $data['description'] = addslashes($description);
@@ -162,14 +163,13 @@ class Crawl extends Controller {
 
                 if(null == $c) {
                     $data['name'] = addslashes($name);
-                    $data['alias'] = strip_disallowed_characters($name);
+                    $data['alias'] = trim(strip_disallowed_characters($name));
                     $data['url'] = $url;
                     $data['parent_id'] = 0;
                     $data['last_updated'] = date('Y-m-d h:i:s');
                     $data['added_date'] = date('Y-m-d h:i:s');
 
         			$id = $this->jobcategories_model->insert($data);
-
                     $num_inserted++;
                 }
                 else {
@@ -189,17 +189,16 @@ class Crawl extends Controller {
 
                         if(null == $c) {
                             $data['name'] = addslashes($name);
-                            $data['alias'] = strip_disallowed_characters($name);
+                            $data['alias'] = trim(strip_disallowed_characters($name));
                             $data['url'] = $url;
                             $data['parent_id'] = $id;
                             $data['last_updated'] = date('Y-m-d h:i:s');
                             $data['added_date'] = date('Y-m-d h:i:s');
 
-                			$id = $this->jobcategories_model->insert($data);
+                			$this->jobcategories_model->insert($data);
                             $num_inserted++;
                         }
                         else {
-                            $id = $c['id'];
                             $num_existed++;
                         }
                     }

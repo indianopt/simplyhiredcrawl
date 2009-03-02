@@ -1,0 +1,1 @@
+ALTER TABLE `jobs` ADD `alias` VARCHAR( 128 ) NOT NULL AFTER `name` 
