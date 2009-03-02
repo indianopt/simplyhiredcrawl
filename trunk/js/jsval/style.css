@@ -1,0 +1,12 @@
+input.error, select.error {
+	border: 1px solid red;
+	background-color: #FFFCE2;
+	background-image: url(warning_obj.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+input:focus, select:focus {
+	border: 1px solid red;
+	background-color:#FFFFFF;
+}

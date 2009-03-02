@@ -1,0 +1,16 @@
+$SENDER_NAME ($SENDER_EMAIL) gửi thông tin liên hệ với chi tiết như sau:
+<br />
+<br />
+Tên người gửi: $SENDER_NAME
+<br />
+Email: $SENDER_EMAIL
+<br />
+Điện thoại: $SENDER_PHONE
+<br />
+Công ty: $SENDER_COMPANY
+<br />
+Tiêu đề: $TITLE
+<br />
+Nội dung:
+<br />
+$MESSAGE

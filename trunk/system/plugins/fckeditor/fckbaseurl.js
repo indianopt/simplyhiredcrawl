@@ -1,0 +1,1 @@
+﻿var FCK_BASE_URL = 'http://localhost/'
