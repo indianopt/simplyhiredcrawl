@@ -51,9 +51,9 @@ $db['local']['char_set'] = "utf8";
 $db['local']['dbcollat'] = "utf8_general_ci";
 
 $db['product']['hostname'] = "localhost";
-$db['product']['username'] = "vplshovu_vplshovu";
-$db['product']['password'] = "vplshovu";
-$db['product']['database'] = "vplshovu_vplshovu";
+$db['product']['username'] = "giaodn_giaodn";
+$db['product']['password'] = "EQQR+{(#>aJ9";
+$db['product']['database'] = "giaodn_crawl";
 $db['product']['dbdriver'] = "mysql";
 $db['product']['dbprefix'] = "";
 $db['product']['pconnect'] = TRUE;

@@ -193,7 +193,7 @@ class Job extends Authentication {
             $l = strpos($c, '<div class="description">');
             $temp = substr($c, $f, ($l - $f));
             
-            $details = trim(strip_tags($temp));
+            $details = strip_tags($temp);
             $details = explode('-', $details);
             if(strpos($temp, 'class="company who"') !== false) {
                 $company = trim($details[0]);
