@@ -15,7 +15,7 @@ class Crawl extends Controller {
 
 	}
    
-    function jobs($perpage = 5) {
+    function jobs($perpage = 5, $continue_run = false, $ignore_existed = false) {
 		$result = $this->jobcategories_model->search(
                                                         array(
                                                             'order_by' => 'added_date',
@@ -24,6 +24,7 @@ class Crawl extends Controller {
                                                         ),
                                                         'AND parent_id <> 0 AND is_crawl_completed = 0'
                                                     );        
+        $is_complete = false;
         $output = '';                                                        
         if(!empty($result['records'])) {
             $category = $result['records'][0];
@@ -36,17 +37,20 @@ class Crawl extends Controller {
                 if($index > $perpage) {
                     break;
                 }
-                $url = $this->process_url($url, $category_id);
+                $url = $this->process_url($url, $category_id, $ignore_existed);
                 $index++;
             }
             if(!$url) {
                 $this->jobcategories_model->update($category_id, array('is_crawl_completed' => 1));
             }
         }
-        echo $output;
+        else {
+            $is_complete = true;
+        }
+        $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
     }
     
-    function process_url($url, $category_id) {       
+    function process_url($url, $category_id, $ignore_existed = false) {       
         $content = @file_get_contents($url);
         if(!$content) die("Error loading {$url}");
         
@@ -133,7 +137,9 @@ class Crawl extends Controller {
                 $this->jobs_model->insert($data);
             }
             else {
-                return false;   
+                if(!$ignore_existed) {
+                    return false;
+                }
             }
         }
         
