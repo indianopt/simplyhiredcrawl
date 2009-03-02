@@ -9,3 +9,35 @@
         Allow from all
     </Directory>
 </VirtualHost>
+
++===================================+
+| New Account Info                  |
++===================================+
+| Domain: giaodn.com
+| Ip: 67.215.225.218 (n)
+| HasCgi: y
+| UserName: giaodn
+| PassWord: abc123456789
+| CpanelMod: x3
+| HomeRoot: /home
+| Quota: 0 Meg
+| NameServer1: ns1.tmdv.net
+| NameServer2: ns2.tmdv.net
+| NameServer3: 
+| NameServer4: 
+| Contact Email: tech@wdtech.net
+| Package: tmdv
+| Feature List: default
+| Language: english
++===================================+
+
+aa bbb: http://67.215.225.218/~giaodn/
+aa bbb: link do'
+aa bbb: 
+aa bbb: http://67.215.225.218/~giaodn/
+Ngoc Giao Dang: Ok, thx N
+Ngoc Giao Dang: Sao vo CPanel?
+aa bbb: http://67.215.225.218:2082
+
+
+Now r2
