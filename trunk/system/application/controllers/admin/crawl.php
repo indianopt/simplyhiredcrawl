@@ -15,22 +15,35 @@ class Crawl extends Controller {
 
 	}
    
-    function jobs() {
+    function jobs($perpage = 5) {
 		$result = $this->jobcategories_model->search(
                                                         array(
                                                             'order_by' => 'added_date',
-                                                            //'perpage' => 1,
-                                                            //'start' => 0
+                                                            'perpage' => 1,
+                                                            'start' => 0
                                                         ),
-                                                        'AND parent_id <> 0'
+                                                        'AND parent_id <> 0 AND is_crawl_completed = 0'
                                                     );        
+        $output = '';                                                        
         if(!empty($result['records'])) {
-            $url = $result['records'][0]['url'];
-            $category_id = $result['records'][0]['id'];
+            $category = $result['records'][0];
+            $url = $category['next_url'] ? $category['next_url'] : $category['url'];
+            $category_id = $category['id'];
+            $index = 1;
             while($url) {
-                $url = $this->process_url($url, $category_id);    
-            }    
+                $output .= "$category_id::$url <br />";
+                $this->jobcategories_model->update($category_id, array('next_url' => $url));
+                if($index > $perpage) {
+                    break;
+                }
+                $url = $this->process_url($url, $category_id);
+                $index++;
+            }
+            if(!$url) {
+                $this->jobcategories_model->update($category_id, array('is_crawl_completed' => 1));
+            }
         }
+        echo $output;
     }
     
     function process_url($url, $category_id) {       
@@ -68,7 +81,7 @@ class Crawl extends Controller {
             $a = extract_anchor($heading);
             
             $name = $a['name'];
-            $url = $a['href'];
+            $detail_url = $a['href'];
             
             $f = strpos($c, '<div class="details">');
             $l = strpos($c, '<div class="description">');
@@ -110,6 +123,7 @@ class Crawl extends Controller {
             $data['time_latest'] = addslashes($time_latest);
             $data['crawl_from'] = addslashes($crawl_from);
             $data['category_id '] = $category_id;
+            $data['url '] = $detail_url;
             
             $data['last_updated'] = date('Y-m-d h:i:s');
             $data['added_date'] = date('Y-m-d h:i:s');
@@ -191,7 +205,12 @@ class Crawl extends Controller {
     }
     
     function test() {
-        echo 'Ok!';
+        $url = 'http://www.simplyhired.com/a/jobs/list/q-Administration/pn-27';
+        $this->process_url($url, 2);
+    }
+    
+    function test_cron() {
+        echo 'Ok';
     }
 }
 ?>

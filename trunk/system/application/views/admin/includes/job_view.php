@@ -24,6 +24,10 @@
 		<td width="85%" class="tabDetailViewDF"><?=$job['location']?>&nbsp;</td>
 	</tr>
     <tr>
+		<td width="15%" class="tabDetailViewDL">Url:</td>
+		<td width="85%" class="tabDetailViewDF"><?=$job['url']?>&nbsp;</td>
+	</tr>
+    <tr>
 		<td width="15%" class="tabDetailViewDL">Time latest:</td>
 		<td width="85%" class="tabDetailViewDF"><?=$job['time_latest']?>&nbsp;</td>
 	</tr>
