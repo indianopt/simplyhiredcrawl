@@ -67,13 +67,20 @@ class Jobs_Model extends Model {
 		$this->db->delete('jobs', array('id' => $id));		
 	}
     
-    function search($params) {
+    function search($params, $extra_where = '') {
 		$count  = 'SELECT COUNT(DISTINCT(j.id)) AS total';
 		$select = 'SELECT j.*, c.name AS category_name';
 		$from   = 'FROM jobs j LEFT JOIN job_categories c ON j.category_id = c.id';
 		$where  = 'WHERE TRUE';
 		if(isset($params['name']) && $params['name'] != '') {
 			$where .= ' AND j.name LIKE "%' . $params['name'] . '%"';
+		}
+        if(isset($params['keyword']) && $params['keyword'] != '') {
+            $keyword = trim($params['keyword']);
+			$where .= " AND MATCH(name, company, description) AGAINST ('$keyword' IN BOOLEAN MODE)";
+		}
+        if($extra_where != '') {
+			$where .= " $extra_where";
 		}
 		
 		$order_by = '';
