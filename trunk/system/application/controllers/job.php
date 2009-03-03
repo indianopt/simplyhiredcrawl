@@ -13,8 +13,8 @@ class Job extends Controller {
         $result = $this->jobs_model->search(array('order_by' => 'added_date', 'order_direction' => 'DESC', 'perpage' => 10, 'start' => $start), "AND category_id = $id");
 
         $data['jobs'] = $result['records'];
-        
-        $config['base_url'] = site_url("job/listing/$type//$id/$alias/");
+
+        $config['base_url'] = site_url("job/listing/$type/$id/$alias/");
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
@@ -22,7 +22,7 @@ class Job extends Controller {
         $this->pagination->initialize($config); 
         
         $categories = $this->jobcategories_model->get_by_id($id);
-        $data['category'] = $categories['name'];
+        $data['title'] = $categories['name'];
         $this->layout->buildPage('job/listing', $data);
     }
     
@@ -33,7 +33,20 @@ class Job extends Controller {
         redirect('job/result/' . ($keyword ? $keyword : 'none') . '/' . ($location ? $location : 'none'), 'refresh');
     }
     
-    function result($keyword, $location) {
+    function result($keyword, $location, $start = 0) {
+        $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'order_by' => 'added_date', 'order_direction' => 'DESC', 'perpage' => 10, 'start' => $start));
+
+        $data['jobs'] = $result['records'];
+
+        $config['base_url'] = site_url("job/result/$keyword/$location");
+        $config['total_rows'] = $result['total'];
+        $config['per_page'] = 10;
+        $config['cur_page'] = $start;
+
+        $this->pagination->initialize($config); 
+        
+        $data['title'] = 'Result';
+        $this->layout->buildPage('job/listing', $data);
     }
     
 }

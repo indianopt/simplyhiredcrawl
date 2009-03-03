@@ -15,9 +15,5 @@ class JobCategory extends Controller {
         $data['parent_category'] = $parent['name'];
         $this->layout->buildPage('jobcategory/index', $data);
     }
-    
-    function job($category_id, $category_alias) {
-        redirect("job/searchresult/$category_id/$category_alias", 'refresh');
-    }
 }
 ?>
