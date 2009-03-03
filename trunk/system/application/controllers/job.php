@@ -25,5 +25,16 @@ class Job extends Controller {
         $data['category'] = $categories['name'];
         $this->layout->buildPage('job/listing', $data);
     }
+    
+    function search() {
+        $keyword = $this->input->post('keyword');
+        $location = $this->input->post('location');
+        
+        redirect('job/result/' . ($keyword ? $keyword : 'none') . '/' . ($location ? $location : 'none'), 'refresh');
+    }
+    
+    function result($keyword, $location) {
+    }
+    
 }
 ?>

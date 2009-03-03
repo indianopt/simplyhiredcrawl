@@ -18,7 +18,7 @@
     			</div>
     		</div>
             <div class="search_field">
-    			<form method="post" action="">
+    			<form method="post" action="<?=site_url('job/search')?>">
     				<p>Keywords:&nbsp;<input type="text" name="keyword" />&nbsp;&nbsp;&nbsp;Location:&nbsp;<input type="text" name="location" />&nbsp;&nbsp;<input type="submit" value="Tìm" /></p>
     			</form>
     		</div>
