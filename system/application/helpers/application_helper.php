@@ -36,9 +36,9 @@
     function shortcuts($current_tab) {
         $shortcuts['home'] = array(
     								array('icon_image' => 'list.png', 'name' => 'Create user', 'url' => site_url('admin/user/edit')),
-                                    array('icon_image' => 'list.png', 'name' => 'Create category', 'url' => site_url('admin/category/edit')),
-                                    array('icon_image' => 'list.png', 'name' => 'Create news', 'url' => site_url('admin/news/edit')),
-                                    array('icon_image' => 'list.png', 'name' => 'Create item', 'url' => site_url('admin/item/edit')),
+                                    //array('icon_image' => 'list.png', 'name' => 'Create category', 'url' => site_url('admin/category/edit')),
+                                    //array('icon_image' => 'list.png', 'name' => 'Create news', 'url' => site_url('admin/news/edit')),
+                                    //array('icon_image' => 'list.png', 'name' => 'Create item', 'url' => site_url('admin/item/edit')),
     							);
         $shortcuts['setting'] = array();
         $shortcuts['category'] = array(

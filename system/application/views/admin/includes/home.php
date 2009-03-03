@@ -13,16 +13,14 @@
 <table class="tabDetailView" border="0" cellpadding="0" cellspacing="1" width="100%">
     <tbody>
         <tr>
-    		<td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="System Settings" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/user')?>" class="tabDetailViewDL2Link">Users management</a></td>
+    		<td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/user')?>" class="tabDetailViewDL2Link">Users management</a></td>
     		<td class="tabDetailViewDF2" align="left" width="30%">Add, Edit, Delete, Search users</td>				
-	        <td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="System Settings" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/category')?>" class="tabDetailViewDL2Link">Categories management</a></td>
+	        <td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/jobcategory')?>" class="tabDetailViewDL2Link">Job categories management</a></td>
     		<td class="tabDetailViewDF2" align="left" width="30%">Add, Edit, Delete, Search categories</td>				
         </tr>
         <tr>
-    		<td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="System Settings" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/news')?>" class="tabDetailViewDL2Link">News management</a></td>
-    		<td class="tabDetailViewDF2" align="left" width="30%">Add, Edit, Delete, Search news</td>				
-	        <td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="System Settings" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/cafeshop')?>" class="tabDetailViewDL2Link">Cafeshop management</a></td>
-    		<td class="tabDetailViewDF2" align="left" width="30%">Add, Edit, Delete, Search cafe shops</td>				
+    		<td class="tabDetailViewDL2" nowrap="nowrap" width="20%"><img src="<?=base_url()?>images/admin/list.png" alt="" align="absmiddle" border="0" height="16" width="16">&nbsp;<a href="<?=site_url('admin/job')?>" class="tabDetailViewDL2Link">Jobs management</a></td>
+    		<td class="tabDetailViewDF2" align="left" colspan="3" width="80%">Add, Edit, Delete, Search news</td>				
         </tr>
     </tbody>
 </table>
