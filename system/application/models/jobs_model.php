@@ -75,9 +75,13 @@ class Jobs_Model extends Model {
 		if(isset($params['name']) && $params['name'] != '') {
 			$where .= ' AND j.name LIKE "%' . $params['name'] . '%"';
 		}
-        if(isset($params['keyword']) && $params['keyword'] != '') {
+        if(isset($params['keyword']) && $params['keyword'] != '' && $params['keyword'] != 'none') {
             $keyword = trim($params['keyword']);
-			$where .= " AND MATCH(name, company, description) AGAINST ('$keyword' IN BOOLEAN MODE)";
+			$where .= " AND MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE)";
+		}
+        if(isset($params['location']) && $params['location'] != '' && $params['location'] != 'none') {
+            $location = trim($params['location']);
+			$where .= " AND MATCH(j.location) AGAINST ('$location' IN BOOLEAN MODE)";
 		}
         if($extra_where != '') {
 			$where .= " $extra_where";
@@ -102,7 +106,6 @@ class Jobs_Model extends Model {
 		$total = $total->row();
 		$total = $total->total;
 		$query = $this->db->query(implode(' ', array($select, $from, $where, $order_by, $limit)));
-        
 		$records = $query->result_array();
         $query->free_result();
 		return array('records' => $records, 'total' => $total);
