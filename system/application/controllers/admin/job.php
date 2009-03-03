@@ -78,7 +78,7 @@ class Job extends Authentication {
     		}
     		else {
                 $data['name'] = addslashes($this->input->post('name'));
-                $data['alias'] = $this->input->post('name');
+                $data['alias'] = $this->input->post('alias');
                 $data['company'] = addslashes($this->input->post('company'));
                 $data['location'] = addslashes($this->input->post('location'));
                 $data['description'] = addslashes($this->input->post('description'));
