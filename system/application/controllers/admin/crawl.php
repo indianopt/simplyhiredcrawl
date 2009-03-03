@@ -45,12 +45,54 @@ class Crawl extends Controller {
             }
         }
         else {
+            $this->jobcategories_model->update(false, array('is_crawl_completed' => 1, 'next_url' => ''));
             $is_complete = true;
         }
         $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
     }
     
-    function process_url($url, $category_id, $ignore_existed = false) {       
+    function daily_crawl_jobs($deep = 3, $perpage = 5, $continue_run = false) {
+        $result = $this->jobcategories_model->search(
+                                                        array(
+                                                            'order_by' => 'added_date',
+                                                            'perpage' => 1,
+                                                            'start' => 0
+                                                        ),
+                                                        'AND parent_id <> 0 AND is_crawl_daily_completed = 0'
+                                                    );        
+        $is_complete = false;
+        $output = '';                                                        
+        if(!empty($result['records'])) {
+            $category = $result['records'][0];
+            $url = $category['daily_next_url'] ? $category['daily_next_url'] : $category['url'];
+            $category_id = $category['id'];
+            $index = 1;
+            $number_of_duplicated = 0;
+            $ignore_existed = true;
+            while($url) {
+                $output .= "$category_id::$url <br />";
+                $this->jobcategories_model->update($category_id, array('daily_next_url' => $url));
+                if($index > $perpage) {
+                    break;
+                }
+                if($number_of_duplicated >= $deep) {
+                    $ignore_existed = true;
+                }
+                $url = $this->process_url($url, $category_id, $ignore_existed, $number_of_duplicated);
+                $index++;
+            }
+            if(!$url) {
+                $this->jobcategories_model->update($category_id, array('is_crawl_daily_completed' => 1));
+            }
+        }
+        else {
+            $this->jobcategories_model->update(false, array('is_crawl_daily_completed' => 1, 'daily_next_url' => ''));
+            $is_complete = true;
+        }
+        $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
+    }    
+    
+    function process_url($url, $category_id, $ignore_existed = false, &$number_of_duplicated = 0) {       
         $content = @file_get_contents($url);
         if($content) {
             $path_info = parse_url($url);
@@ -143,6 +185,7 @@ class Crawl extends Controller {
                     $this->jobs_model->insert($data);
                 }
                 else {
+                    $number_of_duplicated++;
                     if(!$ignore_existed) {
                         return false;
                     }
