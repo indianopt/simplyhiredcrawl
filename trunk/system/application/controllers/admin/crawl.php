@@ -52,99 +52,108 @@ class Crawl extends Controller {
     
     function process_url($url, $category_id, $ignore_existed = false) {       
         $content = @file_get_contents($url);
-        if(!$content) die("Error loading {$url}");
-        
-        $path_info = parse_url($url);
-        $base = $path_info['scheme'] . "://" . $path_info['host'];
-        $content = preg_replace("/<a([^>]*)href=\"\//is", "<a$1href=\"{$base}/", $content);
-        $content = preg_replace("/<a([^>]*)href=\"\?/is", "<a$1href=\"{$url}/?", $content);
-        
-        preg_match_all("/<a class=\"next\" rel=\"nofollow\" href=\"([^\"]*)\"(?:[^>]*)>(?:[^<]*)<\/a>/is", $content, $matches);
-        $next_url = isset($matches[1][0]) ? $matches[1][0] : false;
-        
-        preg_match_all("/<div class=\"results\">(.*)<div class=\"results featured\">/is", $content, $matches);
-        $content = $matches[0][0];
-        
-        $result = array();
-        $s_pattern = '<div class="job">';
-        $e_pattern = '</div><!--job-->';
-        
-        while(strpos($content, $s_pattern) !== false) {
-            $s = strpos($content, $s_pattern);
-            $e = strpos($content, $e_pattern);
-        
-            $c = substr($content, $s, ($e - $s) + strlen($e_pattern));
-            $content = substr($content, $e + strlen($e_pattern));
-            $c = str_replace("/<span class=\"tools\">/is", '', $c);
+        if($content) {
+            $path_info = parse_url($url);
+            $base = $path_info['scheme'] . "://" . $path_info['host'];
+            $content = preg_replace("/<a([^>]*)href=\"\//is", "<a$1href=\"{$base}/", $content);
+            $content = preg_replace("/<a([^>]*)href=\"\?/is", "<a$1href=\"{$url}/?", $content);
             
-            // Parse $c
-            $f = strpos($c, '<div class="heading">');
-            $l = strpos($c, '<div class="details">');
-            $heading = strip_tags(substr($c, $f, ($l - $f)), '<a>');
+            preg_match_all("/<a class=\"next\" rel=\"nofollow\" href=\"([^\"]*)\"(?:[^>]*)>(?:[^<]*)<\/a>/is", $content, $matches);
+            $next_url = isset($matches[1][0]) ? $matches[1][0] : false;
             
-            $a = extract_anchor($heading);
+            //preg_match_all("/<div class=\"results\">(.*)<div class=\"results featured\">/is", $content, $matches);
+            //$content = $matches[0][0];
             
-            $name = $a['name'];
-            $detail_url = $a['href'];
+            $result = array();
+            $s_pattern = '<div class="job">';
+            $e_pattern = '</div><!--job-->';
             
-            $f = strpos($c, '<div class="details">');
-            $l = strpos($c, '<div class="description">');
-            $temp = substr($c, $f, ($l - $f));
+            while(strpos($content, $s_pattern) !== false) {
+                $s = strpos($content, $s_pattern);
+                $e = strpos($content, $e_pattern);
             
-            $details = strip_tags($temp);
-            $details = explode('-', $details);
-            if(strpos($temp, 'class="company who"') !== false) {
-                $company = trim($details[0]);
-                if(strpos($temp, '<span class="location">') !== false) {
-                    $location = trim($details[1]);
+                $c = substr($content, $s, ($e - $s) + strlen($e_pattern));
+                $content = substr($content, $e + strlen($e_pattern));
+                $c = str_replace("/<span class=\"tools\">/is", '', $c);
+                
+                // Parse $c
+                $f = strpos($c, '<div class="heading">');
+                $l = strpos($c, '<div class="details">');
+                $heading = strip_tags(substr($c, $f, ($l - $f)), '<a>');
+                
+                $a = extract_anchor($heading);
+                
+                $name = $a['name'];
+                $detail_url = $a['href'];
+                
+                $f = strpos($c, '<div class="details">');
+                $l = strpos($c, '<div class="description">');
+                $temp = substr($c, $f, ($l - $f));
+                
+                $details = strip_tags($temp);
+                $details = explode('-', $details);
+                if(strpos($temp, 'class="company who"') !== false) {
+                    $company = trim($details[0]);
+                    if(strpos($temp, '<span class="location">') !== false) {
+                        $location = trim($details[1]);
+                    }
+                        
                 }
-                    
-            }
-            else {
-                $company = '';
-                if(strpos($temp, '<span class="location">') !== false) {
-                    $location = trim($details[0]);
+                else {
+                    $company = '';
+                    if(strpos($temp, '<span class="location">') !== false) {
+                        $location = trim($details[0]);
+                    }
+                }
+                
+                $f = strpos($c, '<div class="description">');
+                $l = strpos($c, '<div class="info">');
+                $description = trim(strip_tags(substr($c, $f, ($l - $f))));
+                
+                $f = strpos($c, '<span class="info">');
+                $l = strpos($c, '</span>', $f);
+                $info = trim(strip_tags(substr($c, $f, ($l - $f))));
+                $info = explode('from', $info);
+                
+                if(count($info) > 1) {
+                    $time_latest = $info[0];
+                    $crawl_from = $info[1];
+                }
+                else {
+                    $time_latest = $info[0];
+                    $crawl_from = '';
+                }
+                // End parse $c
+                
+                $data['name'] = addslashes($name);
+                $data['alias'] = trim(strip_disallowed_characters($name));
+                $data['company'] = addslashes($company);
+                $data['location'] = addslashes($location);
+                $data['description'] = addslashes($description);
+                $data['time_latest'] = addslashes($time_latest);
+                $data['crawl_from'] = addslashes($crawl_from);
+                $data['category_id '] = $category_id;
+                $data['url '] = $detail_url;
+                
+                $data['last_updated'] = date('Y-m-d h:i:s');
+                $data['added_date'] = date('Y-m-d h:i:s');
+                
+                $j = $this->jobs_model->get_by_name_company_location_description_time_latest_crawl_from_category_id(addslashes($name), addslashes($company), addslashes($location), addslashes($description), addslashes($time_latest), addslashes($crawl_from), $category_id);
+                if(null == $j) {
+                    $this->jobs_model->insert($data);
+                }
+                else {
+                    if(!$ignore_existed) {
+                        return false;
+                    }
                 }
             }
             
-            $f = strpos($c, '<div class="description">');
-            $l = strpos($c, '<div class="info">');
-            $description = trim(strip_tags(substr($c, $f, ($l - $f))));
-            
-            $f = strpos($c, '<span class="info">');
-            $l = strpos($c, '<span class="tools">');
-            $info = trim(strip_tags(substr($c, $f, ($l - $f))));
-            
-            $info = explode('from', $info);
-            $time_latest = $info[0];
-            $crawl_from = $info[1];
-            // End parse $c
-            
-            $data['name'] = addslashes($name);
-            $data['alias'] = trim(strip_disallowed_characters($name));
-            $data['company'] = addslashes($company);
-            $data['location'] = addslashes($location);
-            $data['description'] = addslashes($description);
-            $data['time_latest'] = addslashes($time_latest);
-            $data['crawl_from'] = addslashes($crawl_from);
-            $data['category_id '] = $category_id;
-            $data['url '] = $detail_url;
-            
-            $data['last_updated'] = date('Y-m-d h:i:s');
-            $data['added_date'] = date('Y-m-d h:i:s');
-            
-            $j = $this->jobs_model->get_by_name_company_location_description_time_latest_crawl_from_category_id(addslashes($name), addslashes($company), addslashes($location), addslashes($description), addslashes($time_latest), addslashes($crawl_from), $category_id);
-            if(null == $j) {
-                $this->jobs_model->insert($data);
-            }
-            else {
-                if(!$ignore_existed) {
-                    return false;
-                }
-            }
+            return $next_url;    
         }
-        
-        return $next_url;
+        else {
+            return false;
+        }
     }
     
     function categories() {
@@ -210,8 +219,6 @@ class Crawl extends Controller {
     }
     
     function test() {
-        $url = 'http://www.simplyhired.com/a/jobs/list/q-Administration/pn-27';
-        $this->process_url($url, 2);
     }
     
     function test_cron() {

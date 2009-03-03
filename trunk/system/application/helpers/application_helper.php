@@ -644,10 +644,10 @@
     }
     
     function strip_disallowed_characters($str) {
-        $pattern = '/[a-z A-Z 0-9]/';
+        $pattern = '/[a-z A-Z 0-9 -]/';
         preg_match_all($pattern, str_replace("'s", '', trim(strtolower($str))), $matches);
-        
         $str = str_replace(' ', '-', trim(implode('', $matches[0])));
+        $str = str_replace('--', '-', $str);
         return $str;
     }
     

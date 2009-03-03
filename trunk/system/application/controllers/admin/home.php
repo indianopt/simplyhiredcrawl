@@ -8,7 +8,6 @@ class Home extends Authentication {
 
 	function Home() {
 		parent::Authentication();
-        $this->load->model('news_model', 'news_model', true);
 	}
 
 	function index() {

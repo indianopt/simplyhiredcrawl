@@ -18,12 +18,12 @@
         $continue_run = $_GET['continue_run'] ? $_GET['continue_run'] : false;
         $ignore_existed = $_GET['ignore_existed'] ? $_GET['ignore_existed'] : false;
         
-        $action = '/' . ($index ? "$index/" : '') . "admin/crawl/jobs/$perpage/$continue_run/$ignore_existed";
+        $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/jobs/$perpage/$continue_run/$ignore_existed";
     }
     else if($target = 'categories') {
-        $action = '/' . ($index ? "$index/" : '') . "admin/crawl/categories";
+        $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/categories";
     }
-    
+
     $fp = fsockopen("$base_url", 80, $errno, $errstr, 30);
     if (!$fp) {
         echo "$errstr ($errno)<br />\n";
