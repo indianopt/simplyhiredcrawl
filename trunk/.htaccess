@@ -11,7 +11,7 @@ RewriteEngine on
 RewriteRule ^(.*).htm$ /index.php/page/index/$1 [L]
 
 RewriteRule ^$ /index.php [L]
-RewriteCond $1 !^(index\.php|system|uploads|assets|test_stuff|contents|flash|gfile|themes|thumbs|images|css|js|jquery|robots\.txt|favicon\.ico)
+RewriteCond $1 !^(index\.php|cron|system|uploads|assets|test_stuff|contents|flash|gfile|themes|thumbs|images|css|js|jquery|robots\.txt|favicon\.ico)
 RewriteRule ^(.*)$ /index.php/$1 [L] 
 
 php_value memory_limit 32M
