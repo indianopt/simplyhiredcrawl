@@ -14,9 +14,9 @@
     
     $action = '';
     if($target == 'jobs') {
-        $perpage = $_GET['perpage'] ? $_GET['perpage'] : 5;
-        $continue_run = $_GET['continue_run'] ? $_GET['continue_run'] : false;
-        $ignore_existed = $_GET['ignore_existed'] ? $_GET['ignore_existed'] : false;
+        $perpage = (isset($_GET['perpage']) && $_GET['perpage']) ? $_GET['perpage'] : 5;
+        $continue_run = (isset($_GET['continue_run']) && $_GET['continue_run']) ? $_GET['continue_run'] : false;
+        $ignore_existed = (isset($_GET['ignore_existed']) && $_GET['ignore_existed']) ? $_GET['ignore_existed'] : false;
         
         $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/jobs/$perpage/$continue_run/$ignore_existed";
     }
@@ -24,9 +24,9 @@
         $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/categories";
     }
     else if($target == 'daily_jobs') {
-        $deep = $_GET['deep'] ? $_GET['deep'] : 3;
-        $perpage = $_GET['perpage'] ? $_GET['perpage'] : 5;
-        $continue_run = $_GET['continue_run'] ? $_GET['continue_run'] : false;
+        $deep = (isset($_GET['deep']) && $_GET['deep']) ? $_GET['deep'] : 3;
+        $perpage = (isset($_GET['perpage']) && $_GET['perpage']) ? $_GET['perpage'] : 5;
+        $continue_run = (isset($_GET['continue_run']) && $_GET['continue_run']) ? $_GET['continue_run'] : false;
         
         $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/daily_crawl_jobs/$deep/$perpage/$ignore_existed";        
     }
