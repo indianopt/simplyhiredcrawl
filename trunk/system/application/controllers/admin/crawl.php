@@ -132,38 +132,46 @@ class Crawl extends Controller {
                 $l = strpos($c, '<div class="description">');
                 $temp = substr($c, $f, ($l - $f));
                 
-                $details = strip_tags($temp);
-                $details = explode('-', $details);
-                if(strpos($temp, 'class="company who"') !== false) {
-                    $company = trim($details[0]);
-                    if(strpos($temp, '<span class="location">') !== false) {
-                        $location = trim($details[1]);
-                    }
+                $company = '';
+                $location = '';
+                if(strpos($temp, 'class="company who"><u>') !== false) {
+                    $f = strpos($temp, 'class="company who"><u>') + strlen('class="company who"><u>');
+                    $l = strpos($temp, '</u></a>', $f);
+                    $company = substr($temp, $f, ($l - $f));
                         
                 }
-                else {
-                    $company = '';
-                    if(strpos($temp, '<span class="location">') !== false) {
-                        $location = trim($details[0]);
-                    }
+                else if(strpos($temp, '<span class="company">') !== false) {
+                    $f = strpos($temp, '<span class="company">') + strlen('<span class="company">');
+                    $l = strpos($temp, '</span>', $f);
+                    $company = substr($temp, $f, ($l - $f));
+                        
+                }
+                if(strpos($temp, '<span class="location">') !== false) {
+                    $f = strpos($temp, '<span class="location">') + strlen('<span class="location">');
+                    $l = strpos($temp, '</span>', $f);
+                    $location = substr($temp, $f, ($l - $f));
+                        
                 }
                 
-                $f = strpos($c, '<div class="description">');
-                $l = strpos($c, '<div class="info">');
-                $description = trim(strip_tags(substr($c, $f, ($l - $f))));
-                
-                $f = strpos($c, '<span class="info">');
-                $l = strpos($c, '</span>', $f);
-                $info = trim(strip_tags(substr($c, $f, ($l - $f))));
-                $info = explode('from', $info);
-                
-                if(count($info) > 1) {
-                    $time_latest = $info[0];
-                    $crawl_from = $info[1];
+                $description = '';
+                if(strpos($c, '<div class="description">') !== false) {    
+                    $f = strpos($c, '<div class="description">');
+                    $l = strpos($c, '</div>', $f);
+                    $description = trim(strip_tags(substr($c, $f, ($l - $f))));
                 }
-                else {
-                    $time_latest = $info[0];
-                    $crawl_from = '';
+                             
+                $time_latest = '';
+                if(strpos($c, '<span class="time latest">') !== false) {    
+                    $f = strpos($c, '<span class="time latest">');
+                    $l = strpos($c, '</span>', $f);
+                    $time_latest = trim(strip_tags(substr($c, $f, ($l - $f))));
+                }
+                
+                $crawl_from = '';
+                if(strpos($c, 'from') !== false) {    
+                    $f = strpos($c, 'from') + strlen('from');
+                    $l = strpos($c, '</a>', $f);
+                    $crawl_from = trim(strip_tags(substr($c, $f, ($l - $f))));
                 }
                 // End parse $c
                 
@@ -174,6 +182,11 @@ class Crawl extends Controller {
                 $data['description'] = addslashes($description);
                 $data['time_latest'] = addslashes($time_latest);
                 $data['crawl_from'] = addslashes($crawl_from);
+                echo '<pre>';
+                    print_r($data);
+                echo '</pre>';
+                echo '<hr />';
+                /*
                 $data['category_id '] = $category_id;
                 $data['url '] = $detail_url;
                 
@@ -190,6 +203,7 @@ class Crawl extends Controller {
                         return false;
                     }
                 }
+                */
             }
             
             return $next_url;    
@@ -262,6 +276,7 @@ class Crawl extends Controller {
     }
     
     function test() {
+        $this->process_url('http://www.simplyhired.com/a/jobs/list/q-Administration', 0);
     }
     
     function test_cron() {
