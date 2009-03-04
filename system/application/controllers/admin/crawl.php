@@ -182,11 +182,7 @@ class Crawl extends Controller {
                 $data['description'] = addslashes($description);
                 $data['time_latest'] = addslashes($time_latest);
                 $data['crawl_from'] = addslashes($crawl_from);
-                echo '<pre>';
-                    print_r($data);
-                echo '</pre>';
-                echo '<hr />';
-                /*
+
                 $data['category_id '] = $category_id;
                 $data['url '] = $detail_url;
                 
@@ -203,7 +199,6 @@ class Crawl extends Controller {
                         return false;
                     }
                 }
-                */
             }
             
             return $next_url;    
