@@ -20,8 +20,15 @@
         
         $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/jobs/$perpage/$continue_run/$ignore_existed";
     }
-    else if($target = 'categories') {
+    else if($target == 'categories') {
         $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/categories";
+    }
+    else if($target == 'daily_jobs') {
+        $deep = $_GET['deep'] ? $_GET['deep'] : 3;
+        $perpage = $_GET['perpage'] ? $_GET['perpage'] : 5;
+        $continue_run = $_GET['continue_run'] ? $_GET['continue_run'] : false;
+        
+        $action = $path_info['path'] . ($index ? "$index/" : '') . "admin/crawl/daily_crawl_jobs/$deep/$perpage/$ignore_existed";        
     }
 
     $fp = fsockopen("$base_url", 80, $errno, $errstr, 30);
