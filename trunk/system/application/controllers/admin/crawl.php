@@ -137,19 +137,19 @@ class Crawl extends Controller {
                 if(strpos($temp, 'class="company who"><u>') !== false) {
                     $f = strpos($temp, 'class="company who"><u>') + strlen('class="company who"><u>');
                     $l = strpos($temp, '</u></a>', $f);
-                    $company = substr($temp, $f, ($l - $f));
+                    $company = trim(strip_tags(substr($temp, $f, ($l - $f))));
                         
                 }
                 else if(strpos($temp, '<span class="company">') !== false) {
                     $f = strpos($temp, '<span class="company">') + strlen('<span class="company">');
                     $l = strpos($temp, '</span>', $f);
-                    $company = substr($temp, $f, ($l - $f));
+                    $company = trim(strip_tags(substr($temp, $f, ($l - $f))));
                         
                 }
                 if(strpos($temp, '<span class="location">') !== false) {
                     $f = strpos($temp, '<span class="location">') + strlen('<span class="location">');
                     $l = strpos($temp, '</span>', $f);
-                    $location = substr($temp, $f, ($l - $f));
+                    $location = trim(strip_tags(substr($temp, $f, ($l - $f))));
                         
                 }
                 
