@@ -15,15 +15,16 @@ class Crawl extends Controller {
 
 	}
    
-    function jobs($perpage = 5, $continue_run = false, $ignore_existed = false) {
-		$result = $this->jobcategories_model->search(
-                                                        array(
+    function jobs($perpage = 5, $continue_run = false, $ignore_existed = false, $max_deep = false) {
+        $extra_sql = 'AND parent_id <> 0 AND is_crawl_completed = 0';
+        if($max_deep) {
+            $extra_sql .= " AND deep <= $max_deep";
+        }
+		$result = $this->jobcategories_model->search(array(
                                                             'order_by' => 'added_date',
                                                             'perpage' => 1,
                                                             'start' => 0
-                                                        ),
-                                                        'AND parent_id <> 0 AND is_crawl_completed = 0'
-                                                    );        
+                                                        ), $extra_sql);        
         $is_complete = false;
         $output = '';                                                        
         if(!empty($result['records'])) {
@@ -31,14 +32,19 @@ class Crawl extends Controller {
             $url = $category['next_url'] ? $category['next_url'] : $category['url'];
             $category_id = $category['id'];
             $index = 1;
+            $deep = $category['deep'];
             while($url) {
                 $output .= "$category_id::$url <br />";
-                $this->jobcategories_model->update($category_id, array('next_url' => $url));
+                $this->jobcategories_model->update($category_id, array('next_url' => $url, 'deep' => $deep));
                 if($index > $perpage) {
+                    break;
+                }
+                if($max_deep && $deep >= $max_deep) {
                     break;
                 }
                 $url = $this->process_url($url, $category_id, $ignore_existed);
                 $index++;
+                $deep++;
             }
             if(!$url) {
                 $this->jobcategories_model->update($category_id, array('is_crawl_completed' => 1));
