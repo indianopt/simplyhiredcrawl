@@ -21,7 +21,9 @@ class JobCategories_Model extends Model {
     }
 
     function update($id, $data) {
-		$this->db->where('id', $id);
+        if($id !== false) {
+		    $this->db->where('id', $id);
+        }
         if($this->db->update('job_categories', $data)) {
 			return true;
 		}
