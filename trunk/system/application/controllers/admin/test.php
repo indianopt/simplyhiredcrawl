@@ -3,30 +3,20 @@
 * Created by Dang Ngoc Giao at giaodn@gmail.com
 */
 
-require_once(APPPATH . 'controllers/admin/authentication.php');
-class Test extends Authentication {
+class Test extends Controller {
 
 	function Test() {
-		parent::Authentication();
-        $this->load->model('test_model', 'test_model', true);
+		parent::Controller();
+
 	}
 
-	function index() {
-        $this->load->helper('file');
+	function index() {            
+        $str = '<span class="company">Yachimec Group</span><a rel="nofollow" id="l_who-498733889-Prosource" class="company who"><u>Prosource</u></a><span></span><a></a>';
         
-        $filenames = get_filenames('./data/');
+        $pattern = '/<span class=\"company\">(.*)<\/span>/is';
+        preg_match_all($pattern, $str, $matches);
         
-        foreach($filenames as $fn) {
-            $str = read_file("./data/$fn");
-            $items = explode("\n", $str);
-            foreach($items as $item) {
-                echo strtolower(to_alias($item));   
-            }
-        }
-            
-        
-        
-        
+        print_r($matches);
 	}
 }
 ?>
