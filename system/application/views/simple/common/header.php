@@ -11,17 +11,28 @@
     	<?=style('style.css')?>
     </head>
     <body>
-      <div class="content">
-    		<div class="header">
-    			<div class="logo">
-    				<h1><a href="#" title="Centralized Internet Content">Logo here</a></h1>
-    			</div>
-    		</div>
-            <div class="search_field">
-    			<form method="post" action="<?=site_url('job/search')?>">
-    				<p>Keywords:&nbsp;<input type="text" name="keyword" />&nbsp;&nbsp;&nbsp;Location:&nbsp;<input type="text" name="location" />&nbsp;&nbsp;<input type="submit" value="Tìm" /></p>
-    			</form>
-    		</div>
-            <div class="subheader">
-    			<p><b>Lorem ipsum dolor</b> sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam <b>erat volutpat</b>. Ut wisi enim ad minim veniam, quis nostrud exerci.</p>
-    		</div>
+        <div id="container">
+            <div id="header">
+
+                <div id="c_header_logo">
+                    <div><a rel="nofollow" href="<?=site_url()?>" title=""><h1 style="font-size: 40px">Logo here</h1></a></div>
+                </div><!--c_header_logo-->
+
+                <div id="c_header_search">
+                    <form name="search" action="<?=site_url('job/search')?>" method="post">
+                        <div class="element">
+                            <label for="keyword" class="text">Keywords</label>
+                            <div><input id="keyword" class="text" name="keyword" value="" type="text"></div>
+                        </div>
+                        <div class="element">
+                            <label for="location" class="text">Location</label>
+                            <div><input id="location" class="text" name="location" value="" type="text"></div>
+                        </div>
+                        <div class="element">
+                            <label>&nbsp;</label>
+                            <div><input class="button" value="Search Jobs" type="submit"></div>
+                        </div>
+                    </form>
+                </div><!--c_header_search-->
+            </div><!--header-->
+            <div class="clear"></div>
