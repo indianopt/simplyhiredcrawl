@@ -51,7 +51,7 @@ class Crawl extends Controller {
             }
         }
         else {
-            $this->jobcategories_model->update(false, array('is_crawl_completed' => 1, 'next_url' => ''));
+            $this->jobcategories_model->update(false, array('is_crawl_completed' => 1, 'next_url' => '', 'deep' => 0));
             $is_complete = true;
         }
         $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
