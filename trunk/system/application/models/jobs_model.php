@@ -77,11 +77,12 @@ class Jobs_Model extends Model {
 		}
         if(isset($params['keyword']) && $params['keyword'] != '' && $params['keyword'] != 'none') {
             $keyword = trim($params['keyword']);
+            $select = "SELECT j.*, c.name AS category_name, MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE) AS relevance";
 			$where .= " AND MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE)";
 		}
         if(isset($params['location']) && $params['location'] != '' && $params['location'] != 'none') {
             $location = trim($params['location']);
-			$where .= " AND MATCH(j.location) AGAINST ('$location' IN BOOLEAN MODE)";
+			$where .= " AND j.location LIKE \"%$location%\"";
 		}
         if($extra_where != '') {
 			$where .= " $extra_where";
@@ -105,10 +106,16 @@ class Jobs_Model extends Model {
 		$total = $this->db->query(implode(' ', array($count, $from, $where)));
 		$total = $total->row();
 		$total = $total->total;
+        
 		$query = $this->db->query(implode(' ', array($select, $from, $where, $order_by, $limit)));
 		$records = $query->result_array();
         $query->free_result();
 		return array('records' => $records, 'total' => $total);
 	}
+    
+    function get_all_locations($limit = 0) {
+        $query = $this->db->query("SELECT DISTINCT location FROM jobs WHERE location <> '' ORDER BY location" . ($limit ? " LIMIT $limit" : ''));
+		return $query->result_array();
+    }
 }
 ?>

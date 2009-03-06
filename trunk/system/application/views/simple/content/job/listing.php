@@ -1,13 +1,37 @@
-<h1><?=$title?></h1>
-<div class="content">
-    <?foreach($jobs as $j) {?>
-        <p>
-            <!--<a href="<?=site_url('job/detail/' . $j['id'] . '/' . $j['alias'])?>"><b><?=$j['name']?></b></a><br />-->
-            <a href="<?=$j['url']?>"><b><?=$j['name']?></b></a><br />
-            <?=$j['company']?> - <?=$j['location']?><br />
-            <?=$j['description']?><br />
-            <?=$j['time_latest']?> - <a href="<?=$j['url']?>"><?=$j['crawl_from']?></a><br />
-        </p>
-    <?}?>
-    <?=$this->pagination->create_links()?>                
-</div>
+<div id="navbar">
+    <div class="breadcrumbs"><a rel="nofollow" href="<?=site_url()?>">Home</a><?if(isset($category)) {?> <span class="s">&gt;</span> <h1><a rel="nofollow" href="<?=site_url('jobcategory/subcategory/' . $category['id'] . '/' . $category['alias'])?>"><?=$category['name']?></a></h1><?}?> <span class="s">&gt;</span> <h1><?=$title?></h1></div>
+</div><!--navbar-->
+<div id="content">
+    <div id="browse">
+        <div class="browse_box">
+            <div class="browse_box_header"><div class="c_left_col"><h2><?=$title?></h2></div>
+            <div class="clear"></div>
+        </div><!-- /browse_box_header -->
+    
+        <div class="results">
+            <ul>
+                <?foreach($jobs as $j) {?>
+                    <li class="result">
+                        <div class="job">
+                            <div class="heading">
+                                <a rel="nofollow" class="view title" href="<?=$j['url']?>"><?=$j['name']?></a>
+                            </div>
+                            <div class="details">
+                                <a rel="nofollow" class="company who"><u><?=$j['company']?></u></a>
+                                <span class="location"><?=$j['location']?></span>
+                            </div>
+                            <div class="description">
+                                <?=$j['description']?>
+                            </div>
+                            <span class="info">
+                                <span class="time latest"><?=$j['time_latest']?></span> from <a rel="nofollow" class="view source" href="<?=$j['url']?>"><?=$j['crawl_from']?></a>
+                            </span>
+                        </div>
+                    </li>
+                <?}?>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <?=$this->pagination->create_links()?>
+    </div>
+</div>    
