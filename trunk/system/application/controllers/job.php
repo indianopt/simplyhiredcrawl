@@ -114,5 +114,22 @@ class Job extends Controller {
         $data['title'] = 'Result';
         $this->layout->buildPage('job/listing', $data);
     }
+    
+    function detail($id, $alias) {
+        $job = $this->jobs_model->get_by_id($id);
+        if($job) {
+            $url = $job['url'];
+            $redirect_url = get_redirect_url($url);
+            if($redirect_url) {
+                header("location: $redirect_url");
+            }
+            else {
+                header("location: $url");
+            }
+        }
+        else {
+            show_404();
+        }
+    }
 }
 ?>

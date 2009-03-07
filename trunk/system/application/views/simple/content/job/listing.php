@@ -14,7 +14,7 @@
                     <li class="result">
                         <div class="job">
                             <div class="heading">
-                                <a rel="nofollow" class="view title" href="<?=$j['url']?>"><?=$j['name']?></a>
+                                <a rel="nofollow" class="view title" href="<?=site_url('job/detail/' . $j['id'] . '/' . $j['alias'])?>"><?=$j['name']?></a>
                             </div>
                             <div class="details">
                                 <a rel="nofollow" class="company who"><u><?=$j['company']?></u></a>
@@ -24,7 +24,7 @@
                                 <?=$j['description']?>
                             </div>
                             <span class="info">
-                                <span class="time latest"><?=$j['time_latest']?></span> from <a rel="nofollow" class="view source" href="<?=$j['url']?>"><?=$j['crawl_from']?></a>
+                                <span class="time latest"><?=$j['time_latest']?></span> from <a rel="nofollow" class="view source" href="<?=site_url('job/detail/' . $j['id'] . '/' . $j['alias'])?>"><?=$j['crawl_from']?></a>
                             </span>
                         </div>
                     </li>
