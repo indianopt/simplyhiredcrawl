@@ -59,7 +59,7 @@ class Crawl extends Controller {
                                                             'start' => 0
                                                         ),
                                                         'AND parent_id <> 0 AND is_crawl_daily_completed = 0 AND is_crawl_completed = 1'
-                                                    );        
+                                                    );       
         $is_complete = false;
         $output = '';                                                        
         if(!empty($result['records'])) {
@@ -76,7 +76,7 @@ class Crawl extends Controller {
                     break;
                 }
                 if($number_of_duplicated >= $deep) {
-                    $ignore_existed = true;
+                    $ignore_existed = false;
                 }
                 $url = $this->process_url($url, $category_id, $ignore_existed, $number_of_duplicated);
                 $index++;
