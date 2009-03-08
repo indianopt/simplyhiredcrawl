@@ -21,7 +21,7 @@
                                 <span class="location"><?=$j['location']?></span>
                             </div>
                             <div class="description">
-                                <?=$j['description']?>
+                                <?=stripslashes($j['description'])?>
                             </div>
                             <span class="info">
                                 <span class="time latest"><?=$j['time_latest']?></span> from <a rel="nofollow" class="view source" href="<?=site_url('job/detail/' . $j['id'] . '/' . $j['alias'])?>"><?=$j['crawl_from']?></a>
