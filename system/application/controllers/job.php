@@ -19,6 +19,7 @@ class Job extends Controller {
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
+        $config['uri_segment'] = 5;
 
         $this->pagination->initialize($config); 
         
@@ -40,6 +41,7 @@ class Job extends Controller {
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
+        $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config); 
         
@@ -57,6 +59,7 @@ class Job extends Controller {
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
+        $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config); 
         
@@ -74,6 +77,7 @@ class Job extends Controller {
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
+        $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config); 
         
@@ -104,10 +108,11 @@ class Job extends Controller {
 
         $data['jobs'] = $result['records'];
 
-        $config['base_url'] = site_url("job/result/$keyword/$location");
+        $config['base_url'] = site_url("job/result/$code");
         $config['total_rows'] = $result['total'];
         $config['per_page'] = 10;
         $config['cur_page'] = $start;
+        $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config); 
         
