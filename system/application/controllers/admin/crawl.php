@@ -45,7 +45,7 @@ class Crawl extends Controller {
             }
         }
         else {
-            $this->jobcategories_model->update(false, array('is_crawl_completed' => 1, 'next_url' => ''));
+            $this->jobcategories_model->update(false, array('is_crawl_completed' => 0, 'next_url' => ''));
             $is_complete = true;
         }
         $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
@@ -86,7 +86,7 @@ class Crawl extends Controller {
             }
         }
         else {
-            $this->jobcategories_model->update(false, array('is_crawl_daily_completed' => 1, 'daily_next_url' => ''));
+            $this->jobcategories_model->update(false, array('is_crawl_daily_completed' => 0, 'daily_next_url' => ''));
             $is_complete = true;
         }
         $this->load->view('admin/crawl_jobs_report', array('output' => $output, 'continue_run' => $continue_run, 'is_complete' => $is_complete));
@@ -268,14 +268,6 @@ class Crawl extends Controller {
         }
         
         $this->load->view('admin/crawl_jobcategories_report', array('num_inserted' => $num_inserted, 'num_existed' => $num_existed));
-    }
-    
-    function test() {
-        $this->process_url('http://www.simplyhired.com/a/jobs/list/q-Administration', 0);
-    }
-    
-    function test_cron() {
-        echo 'Ok';
     }
 }
 ?>

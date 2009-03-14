@@ -103,6 +103,8 @@ class Job extends Controller {
         if($criteria != null) {
             $keyword = $criteria['keyword'];
             $location = $criteria['location'];
+            
+            $this->search_model->update($criteria['code'], array('time' => time()));
         }
         $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'order_by' => $keyword ? 'relevance' : 'added_date', 'order_direction' => 'DESC', 'perpage' => 10, 'start' => $start));
 
