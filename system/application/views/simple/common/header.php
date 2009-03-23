@@ -32,6 +32,12 @@
                             <label>&nbsp;</label>
                             <div><input class="button" value="Search Jobs" type="submit"></div>
                         </div>
+                        <div class="element">
+                            <label>&nbsp;</label>
+                            <p>&nbsp;</p>
+                            <p><a rel="nofollow" id="l_advanced_search" href="<?=site_url('job/advanced_search')?>">Advanced Job Search</a></p>
+                        </div>
+
                     </form>
                 </div><!--c_header_search-->
             </div><!--header-->

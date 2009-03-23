@@ -1,0 +1,149 @@
+
+
+/* ***** ADVANCED SEARCH ***** */
+
+#content {
+	padding: 20px;
+}
+
+#m_advanced_search {
+	color: red;
+	text-align: center;
+}
+
+#f_advanced_search {
+	margin: 10px 0px;
+	width: 700px;
+}
+
+#f_advanced_search .block {
+	padding: 10px;
+	overflow: auto; /*clear*/
+}
+
+#f_advanced_search .element {
+	clear: left;
+	margin: 4px 0px;
+}
+
+#f_advanced_search h2 {
+	font-size: 100%;
+	line-height: 120%;
+}
+
+#f_advanced_search fieldset {
+	margin: 8px 0px;
+	border: none;
+}
+
+#f_advanced_search input,
+#f_advanced_search select {
+	font-size: 80%;
+}
+
+#f_advanced_search label {
+	font-size: 70%;
+	line-height: 100%;
+	color: #333;
+}
+
+/* top row */
+
+#row_top {
+	clear: both;
+	background-color: #E0F6FA;
+	border-bottom: 3px solid #fff;
+	padding: 10px;
+	font-size: 85%;
+}
+
+/* middle row */
+
+#row_middle {
+	border-bottom: 3px solid #fff;
+	background-color: #D3EE92;
+	width: 100%; /*clear*/
+	overflow: auto; /*clear*/
+}
+
+#column_left {
+	float: left;
+	width: 477px; /*700-220-3*/
+	border-right: 3px solid #fff;
+	background-color: #BBE8FC;
+}
+
+#column_right {
+	float: right;
+	width: 220px;
+	background-color: #D3EE92;
+}
+
+#column_left h2 {
+	color: #009FDA;
+}
+
+#column_left label {
+	float: left;
+	display: block;
+	width: 200px;
+	margin-right: 6px;
+	padding-top: 6px;
+	text-align: right;
+}
+
+#column_right h2 {
+	color: #84B200;
+}
+
+#column_right label {
+	display: block;
+	margin-bottom: 4px;
+}
+
+#column_right label.checkbox {
+	display: inline;
+}
+
+#column_right select {
+	width: 180px; /*220-40*/
+}
+
+#c_keywords, #c_location {
+	border-bottom: 3px solid #fff;
+}
+
+#c_keywords input.text {
+	width: 196px; /*200-4*/
+}
+
+#c_filters fieldset {
+	margin-left: 10px;
+}
+
+/* bottom row */
+
+#row_bottom {
+	clear: both;
+    width: 477px;
+	background-color: #E0F6FA;
+	border-bottom: 3px solid #fff;
+	padding: 20px 0px;
+}
+
+#c_options label {
+	float: left;
+	display: block;
+	width: 200px;
+	margin-right: 6px;
+	padding-top: 6px;
+	text-align: right;
+}
+
+#c_options input.text {
+	width: 300px;
+}
+
+#c_buttons {
+	text-align: center;
+}
