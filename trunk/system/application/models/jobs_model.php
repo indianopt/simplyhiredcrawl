@@ -77,12 +77,26 @@ class Jobs_Model extends Model {
 		}
         if(isset($params['keyword']) && $params['keyword'] != '' && $params['keyword'] != 'none') {
             $keyword = trim($params['keyword']);
-            $select = "SELECT j.*, c.name AS category_name, MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE) AS relevance";
+            $select .= ", MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE) AS relevance";
 			$where .= " AND MATCH(j.name, j.company, j.description) AGAINST ('$keyword' IN BOOLEAN MODE)";
 		}
         if(isset($params['location']) && $params['location'] != '' && $params['location'] != 'none') {
             $location = trim($params['location']);
 			$where .= " AND j.location LIKE \"%$location%\"";
+		}
+        if(isset($params['keyword_within_job_title']) && $params['keyword_within_job_title'] != '' && $params['keyword_within_job_title'] != 'none') {
+            $keyword_within_job_title = trim($params['keyword_within_job_title']);
+            $select .= ", MATCH(j.name) AGAINST ('$keyword_within_job_title' IN BOOLEAN MODE) AS job_title_relevance";
+			$where .= " AND MATCH(j.name) AGAINST ('$keyword_within_job_title' IN BOOLEAN MODE)";
+		}
+        if(isset($params['keyword_within_company_name']) && $params['keyword_within_company_name'] != '' && $params['keyword_within_company_name'] != 'none') {
+            $keyword_within_company_name = trim($params['keyword_within_job_title']);
+            $select .= ", MATCH(j.company) AGAINST ('$keyword_within_company_name' IN BOOLEAN MODE) AS company_relevance";
+			$where .= " AND MATCH(j.company) AGAINST ('$keyword_within_company_name' IN BOOLEAN MODE)";
+		}
+        if(isset($params['category_id']) && $params['category_id'] != '' && $params['category_id'] != '0') {
+            $category_id = trim($params['category_id']);
+			$where .= " AND j.category_id = $category_id";
 		}
         if($extra_where != '') {
 			$where .= " $extra_where";
@@ -106,7 +120,7 @@ class Jobs_Model extends Model {
 		$total = $this->db->query(implode(' ', array($count, $from, $where)));
 		$total = $total->row();
 		$total = $total->total;
-        
+
 		$query = $this->db->query(implode(' ', array($select, $from, $where, $order_by, $limit)));
 		$records = $query->result_array();
         $query->free_result();

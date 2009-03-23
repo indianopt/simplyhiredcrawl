@@ -68,7 +68,7 @@
 
 #column_left {
 	float: left;
-	width: 477px; /*700-220-3*/
+	width: 600px; /*700-220-3*/
 	border-right: 3px solid #fff;
 	background-color: #BBE8FC;
 }
@@ -125,7 +125,7 @@
 
 #row_bottom {
 	clear: both;
-    width: 477px;
+    width: 600px;
 	background-color: #E0F6FA;
 	border-bottom: 3px solid #fff;
 	padding: 20px 0px;
