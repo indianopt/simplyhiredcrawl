@@ -118,7 +118,7 @@ class Job extends Controller {
     }
     
     function advanced_search() {
-        $result = $this->jobcategories_model->search(array('order_by' => 'name'), 'AND parent_id = 0');
+        $result = $this->jobcategories_model->search(array('order_by' => 'name'), 'AND parent_id <> 0');
 
         $data['categories'] = $result['records'];
         $data['locations'] = $this->jobs_model->get_all_locations(false);
@@ -130,39 +130,55 @@ class Job extends Controller {
         $criteria = $this->search_model->get_by_code($code);
         $keyword = '';
         $location = '';
+        $keyword_within_job_title = ''; 
+        $keyword_within_company_name = ''; 
+        $category_id = 0;
+        
         $oder_by = 'added_date';
         $perpage = 10;
         
         if($criteria != null) {
             if($criteria['mode'] == 'basic') {
-                $keyword = $criteria['keyword'];
-                $location = $criteria['location'];
+                $keyword = stripslashes($criteria['keyword']);
+                $location = stripslashes($criteria['location']);
                 if($keyword) {
                     $oder_by = 'relevance';
                 }
             }
             else if($criteria['mode'] == 'advanced') {
-                $extra_where = '';
-                
-                if($keyword_all) {
-                    
-                }
+                $keyword = stripslashes($criteria['keyword']);
+                $location = stripslashes($criteria['location']);
+                $keyword_within_job_title = stripslashes($criteria['keyword_within_job_title']); 
+                $keyword_within_company_name = stripslashes($criteria['keyword_within_company_name']); 
+                $category_id = $criteria['category_id']; 
                 
                 if($criteria['preference_perpage']) {
                     $perpage = $criteria['preference_perpage'];
+                }
+                
+                if($criteria['preference_perpage'] == 'relevance') {
+                    if($keyword) {
+                        $oder_by = 'relevance';
+                    }
+                    else if(keyword_within_job_title) {
+                        $oder_by = 'job_title_relevance';
+                    }
+                    else if(keyword_within_company_name) {
+                        $oder_by = 'company_relevance';
+                    }
                 }
             }
             
             $this->search_model->update($criteria['code'], array('time' => time()));
         }
 
-        $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'order_by' => $oder_by, 'order_direction' => 'DESC', 'perpage' => $perpage, 'start' => $start), $extra_where);
+        $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'category_id' => $category_id, 'keyword_within_job_title' => $keyword_within_job_title, 'keyword_within_company_name' => $keyword_within_company_name, 'order_by' => $oder_by, 'order_direction' => 'DESC', 'perpage' => $perpage, 'start' => $start));
 
         $data['jobs'] = $result['records'];
 
         $config['base_url'] = site_url("job/result/$code");
         $config['total_rows'] = $result['total'];
-        $config['per_page'] = 10;
+        $config['per_page'] = $perpage;
         $config['cur_page'] = $start;
         $config['uri_segment'] = 4;
 
