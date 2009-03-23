@@ -12,7 +12,6 @@ class Home extends Controller {
         $result = $this->jobcategories_model->search(array('order_by' => 'name'), 'AND parent_id = 0');
 
         $data['categories'] = $result['records'];
-        $data['locations'] = $this->jobs_model->get_all_locations(false);
         
         $this->layout->buildPage('home/index', $data);
     }

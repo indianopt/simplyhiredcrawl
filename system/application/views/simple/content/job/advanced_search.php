@@ -39,8 +39,9 @@
                         <label for="location">location:</label>
                         <select name="location" id="location">
                             <option selected="" value="">-- show all --</option>
+                            <?$locations = array('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'NewHampshire', 'NewJersey', 'NewMexico', 'NewYork', 'NorthCarolina', 'NorthDakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'RhodeIsland', 'SouthCarolina', 'SouthDakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'WashingtonDC', 'WestVirginia', 'Wisconsin', 'Wyoming');?>
                             <?foreach($locations as $l) {?>
-                                <option value="<?=$l['location']?>"><?=$l['location']?></option>
+                                <option value="<?=$l?>"><?=$l?></option>
                             <?}?>
                         </select>
                     </div>
