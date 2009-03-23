@@ -87,26 +87,76 @@ class Job extends Controller {
     }
     
     function search() {
-        $keyword = $this->input->post('keyword');
-        $location = $this->input->post('location');
+        $mode = $this->input->post('mode');
+        if($mode == '') {
+            $mode = 'basic';
+        }
         
-        $code = md5(microtime());
-        $this->search_model->insert(array('code' => $code, 'keyword' => $keyword, 'location' => $location, 'time' => time()));
+        $code  = md5(microtime());
+            
+        $data['code'] = $code;
+        $data['time'] = time();
         
+        if($mode == 'basic') {
+            $data['keyword'] = addslashes($this->input->post('keyword'));
+            $data['location'] = addslashes($this->input->post('location'));
+            $data['mode'] = 'basic';
+        }
+        else if($mode == 'advanced') {
+            $data['keyword'] = addslashes($this->input->post('keyword'));
+            $data['location'] = addslashes($this->input->post('location'));
+            $data['keyword_within_job_title'] = addslashes($this->input->post('keyword_within_job_title'));
+            $data['keyword_within_company_name'] = addslashes($this->input->post('keyword_within_company_name'));
+            $data['category_id'] = $this->input->post('category_id');
+            $data['preference_perpage'] = $this->input->post('preference_perpage');
+            $data['preference_sortby'] = $this->input->post('preference_sortby');            
+            $data['mode'] = 'advanced';
+        }
+        
+        $this->search_model->insert($data);
         redirect('job/result/' . $code, 'refresh');
+    }
+    
+    function advanced_search() {
+        $result = $this->jobcategories_model->search(array('order_by' => 'name'), 'AND parent_id = 0');
+
+        $data['categories'] = $result['records'];
+        $data['locations'] = $this->jobs_model->get_all_locations(false);
+        
+        $this->layout->buildPage('job/advanced_search', $data);
     }
     
     function result($code, $start = 0) {
         $criteria = $this->search_model->get_by_code($code);
         $keyword = '';
         $location = '';
+        $oder_by = 'added_date';
+        $perpage = 10;
+        
         if($criteria != null) {
-            $keyword = $criteria['keyword'];
-            $location = $criteria['location'];
+            if($criteria['mode'] == 'basic') {
+                $keyword = $criteria['keyword'];
+                $location = $criteria['location'];
+                if($keyword) {
+                    $oder_by = 'relevance';
+                }
+            }
+            else if($criteria['mode'] == 'advanced') {
+                $extra_where = '';
+                
+                if($keyword_all) {
+                    
+                }
+                
+                if($criteria['preference_perpage']) {
+                    $perpage = $criteria['preference_perpage'];
+                }
+            }
             
             $this->search_model->update($criteria['code'], array('time' => time()));
         }
-        $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'order_by' => $keyword ? 'relevance' : 'added_date', 'order_direction' => 'DESC', 'perpage' => 10, 'start' => $start));
+
+        $result = $this->jobs_model->search(array('keyword' => $keyword, 'location' => $location, 'order_by' => $oder_by, 'order_direction' => 'DESC', 'perpage' => $perpage, 'start' => $start), $extra_where);
 
         $data['jobs'] = $result['records'];
 
