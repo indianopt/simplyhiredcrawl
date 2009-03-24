@@ -10,8 +10,8 @@
                 <h2>Keywords</h2>
                     <fieldset>
                         <div class="element">
-                            <label for="keyword_all">with <strong>all</strong> the words:</label>
-                            <input type="text" value="" name="keyword_all" class="text" id="keyword_all"/>
+                            <label for="keyword">with <strong>all</strong> the words:</label>
+                            <input type="text" value="" name="keyword" class="text" id="keyword"/>
                         </div>
                         <div class="element">
                             <label for="keyword_within_job_title">within <strong>job title</strong>:</label>
