@@ -12,7 +12,7 @@
                 <h3>Job titles:
                     <ul>  
                         <?foreach($chars as $c) {?>
-                            <li><a href="<?=site_url('job/title/' . strtolower($c))?>"><?=$c?></a></li>
+                            <li><a href="<?=site_url('job/title/' . strtolower($c))?>"><?=stripslashes($c)?></a></li>
                         <?}?>
                     </ul>
                 </h3>    
@@ -67,7 +67,7 @@
             <ul class="row"></ul>
             <ul class="row">  
                 <?foreach($chars as $c) {?>
-                    <li><a href="<?=site_url('job/company/' . strtolower($c))?>"><?=$c?></a></li>
+                    <li><a href="<?=site_url('job/company/' . strtolower(stripslashes($c)))?>"><?=stripslashes($c)?></a></li>
                 <?}?>
             </ul>
         </div>
