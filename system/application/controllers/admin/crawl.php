@@ -58,8 +58,9 @@ class Crawl extends Controller {
                                                             'perpage' => 1,
                                                             'start' => 0
                                                         ),
-                                                        'AND parent_id <> 0 AND is_crawl_daily_completed = 0 AND is_crawl_completed = 1'
+                                                        'AND parent_id <> 0 AND is_crawl_daily_completed = 0'
                                                     );       
+        
         $is_complete = false;
         $output = '';                                                        
         if(!empty($result['records'])) {

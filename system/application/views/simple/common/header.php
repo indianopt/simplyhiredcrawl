@@ -15,7 +15,7 @@
             <div id="header">
 
                 <div id="c_header_logo">
-                    <div><a rel="nofollow" href="<?=site_url()?>" title=""><h1 style="font-size: 40px">Logo here</h1></a></div>
+                    <div><a rel="nofollow" href="<?=site_url()?>" title=""><?=image('logo.jpg')?></a></div>
                 </div><!--c_header_logo-->
 
                 <div id="c_header_search">
