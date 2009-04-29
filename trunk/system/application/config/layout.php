@@ -54,7 +54,7 @@ $config['layout_elements'] = array(
 | -------------------------------------------------------------------
 */
 
-$config['app_title']	   = "Title here";
+$config['app_title']	   = "QuickJobHunt.com";
 $config['app_keywords']    = "";
 $config['app_description'] = "";
 $config['app_copyright']   = "(c) 2008 Dang Ngoc Giao All Rights Reserved.";

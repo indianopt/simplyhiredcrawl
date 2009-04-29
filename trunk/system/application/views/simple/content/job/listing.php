@@ -33,5 +33,17 @@
         </div>
         <div class="clear"></div>
         <?=$this->pagination->create_links()?>
+        <div class="results">
+        	<script type="text/javascript">
+			<!--
+				google_ad_client = "pub-0233461652432587";
+				/* 160x600, created 4/28/09 */
+				google_ad_slot = "8680112877";
+				google_ad_width = 1000;
+				google_ad_height = 600;
+			//-->
+			</script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+        </div>
     </div>
-</div>    
+</div>

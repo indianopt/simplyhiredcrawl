@@ -192,7 +192,11 @@ class Job extends Controller {
         if($job) {
             $url = $job['url'];
             $redirect_url = get_redirect_url($url);
+            
             if($redirect_url) {
+            	if(strpos($redirect_url, 'http') === false) {
+	            	$redirect_url = "http://www.simplyhired.com$redirect_url";
+	            }
                 header("location: $redirect_url");
             }
             else {
