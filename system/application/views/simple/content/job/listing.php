@@ -3,7 +3,7 @@
 </div><!--navbar-->
 <table border="0">
     <tr>
-        <td valign="top">
+        <td valign="top" style="padding-left: 10px">
             <div id="content">
                 <div id="browse">
                     <div class="browse_box">
